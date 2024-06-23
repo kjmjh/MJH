@@ -4,3 +4,51 @@
 <meta charset="utf-8">
 <title>MJH</title>
 <h1 style="text-align: center;">新的主页</h1>
+<script>
+       window.onload = function () {
+            var oList = document.getElementById("list");
+            var oTxt = document.getElementById("txt");
+            var oBtn = document.getElementById("btn");
+            var oBtnClear = document.getElementById("btnClear");     
+       oBtn.onclick = function () {
+            //生成随机4位数，作为key
+            var strKey = "";
+            for (var i = 0; i < 4; i++) {
+                strKey += Math.floor(Math.random() * (9 + 1));
+            }
+
+            //获取文本框的值，作为value
+            var strValue = oTxt.value;
+            //调用setItem()设置数据
+            localStorage.setItem(strKey, strValue);
+
+            //插入数据到ul中
+            var oLi = document.createElement("li");
+            var oLiTxt = document.createTextNode(strKey + "：" + strValue);
+            oLi.appendChild(oLiTxt);
+            oList.appendChild(oLi);
+        };
+
+        oBtnClear.onclick = function () {
+            localStorage.clear();
+            oList.innerHTML = "";
+        };
+
+        //页面载入时，读取数据，并添加到页面中
+        for (var i = 0; i < localStorage.length; i++) {
+            var strKey = localStorage.key(i);
+            var strValue = localStorage.getItem(strKey);
+            var oLi = document.createElement("li");
+            var oLiTxt = document.createTextNode(strKey + "：" + strValue);
+            oLi.appendChild(oLiTxt);
+            oList.appendChild(oLi);
+        }
+    }
+</script>
+</head>
+<body>
+    <ul id="list"></ul>
+    <textarea id="txt" cols="30" rows="10"></textarea><br>
+    <input id="btn" type="button" value="发表">
+    <input id="btnClear" type="button" value="清空">
+</body>
