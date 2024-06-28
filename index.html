@@ -4,45 +4,63 @@
 <meta charset="utf-8">
 <title>MJH</title>
 <h1 style="text-align: center;">新的主页(以下是留言板)</h1>
-<form name="input" action="html_form_submit.php" method="get">
-留言：
-<input type="text" name="user" />
-<input type="submit" value="提交" />
-</form>
-<code class="php"><?php if (isset($_POST['name']) && isset($_POST['email']) && isset($_POST['message'])) {
-    // 获取表单数据
-    $name = $_POST['name'];
-    $email = $_POST['email'];
-    $message = $_POST['message'];
- 
-    // 将数据保存到数据库或文件
-    // ... (这里省略数据库或文件操作代码)
- 
-    // 输出成功消息
-    echo "<p>留言已成功提交！";
-}
-?></code>
-<code class="html"><div id="messages">
-    <!-- 在这里显示留言 -->
-</div>
-<script>
-    // 通过AJAX从服务器获取留言并渲染
-    function getMessages() {
-        var xhr = new XMLHttpRequest();
-        xhr.open("GET", "get_messages.php", true);
-        xhr.onload = function() {
-            if (xhr.status === 200) {
-                var messages = JSON.parse(xhr.responseText);
-                var output = "";
-                for (var i = 0; i < messages.length; i++) {
-                    output += "<p>" + messages[i].name + " - " + messages[i].message + "";
+<form id="message" method="post" action="../../demos/baidu.ajax.form/message.php">
+                                                <label>名字：
+                                                        <input name="author" type="text" value="Baidu Demo"/></label>
+                                                <label>性别：
+                                                        <select name="gender">
+                                                                <option value="male">男</option>
+                                                                <option value="female">女</option>
+                                                        </select></label>
+                                                <label>信息：
+                                                        <textarea name="message">使用baidu.ajax.form可以快速提交本表单，并获得从服务器返回的数据</textarea></label>
+                                        </form>
+                                        <span id="btn-send-message" class="button">发送</span>
+                                        <div id="message-display"></div>
+                                        <!--html view end-->
+                                </div>
+                        </div>
+                </div>
+                <style type="text/css">
+                        #message{
+                                border: 1px solid gray;
+                                padding: 10px;
+                                border-radius: 10px;
+                                margin: 10px 0;
+                        }
+                        #message input, #message textarea{
+                                width: 300px;
+                        }
+                        #message textarea{
+                                height: 80px;
+                        }
+                        #message label{
+                                vertical-align: top;
+                                display: block;
+                                margin-top: 10px;
+                        }
+                        #message-display h2{
+                                margin-top: 15px;
+                                margin-bottom: 5px;
+                                font-family: Arial;
+                                font-size: 16px;
+                                color: #68A;
+                        }
+                        #message-display p{
+                                margin-left: 2em;
+                                font-family: Arial, Microsoft Yahei;
+                        }
+                </style>
+                <script type="text/javascript">
+                function sendMessage(){
+                        baidu.ajax.form(baidu.dom('#message')[0], {
+                                onsuccess: function(xhr, responseText){
+                                        var displayer = baidu.dom('#message-display');
+                                        displayer.html(responseText + displayer.html());
+                                }
+                        });
                 }
-                document.getElementById("messages").innerHTML = output;
-            }
-        };
-        xhr.send();
-    }
- 
-    // 页面加载后获取留言
-    window.onload = getMessages();
-</script></code>
+                baidu.dom('#btn-send-message').on('click', sendMessage);
+                </script>
+        </body>
+</html>
