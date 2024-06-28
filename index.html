@@ -4,54 +4,27 @@
 <meta charset="utf-8">
 <title>MJH</title>
 <h1 style="text-align: center;">新的主页(以下是留言板)</h1>
-<style>
-body {text-align: center}
-</style>
+<code class="html"><div id="messages">
+    <!-- 在这里显示留言 -->
+</div>
 <script>
-       window.onload = function () {
-            var oList = document.getElementById("list");
-            var oTxt = document.getElementById("txt");
-            var oBtn = document.getElementById("btn");
-            var oBtnClear = document.getElementById("btnClear");     
-       oBtn.onclick = function () {
-            //生成随机4位数，作为key
-            var strKey = "";
-            for (var i = 0; i < 4; i++) {
-                strKey += Math.floor(Math.random() * (9 + 1));
+    // 通过AJAX从服务器获取留言并渲染
+    function getMessages() {
+        var xhr = new XMLHttpRequest();
+        xhr.open("GET", "get_messages.php", true);
+        xhr.onload = function() {
+            if (xhr.status === 200) {
+                var messages = JSON.parse(xhr.responseText);
+                var output = "";
+                for (var i = 0; i < messages.length; i++) {
+                    output += "<p>" + messages[i].name + " - " + messages[i].message + "";
+                }
+                document.getElementById("messages").innerHTML = output;
             }
-
-            //获取文本框的值，作为value
-            var strValue = oTxt.value;
-            //调用setItem()设置数据
-            localStorage.setItem(strKey, strValue);
-
-            //插入数据到ul中
-            var oLi = document.createElement("li");
-            var oLiTxt = document.createTextNode(strKey + "：" + strValue);
-            oLi.appendChild(oLiTxt);
-            oList.appendChild(oLi);
         };
-
-        oBtnClear.onclick = function () {
-            localStorage.clear();
-            oList.innerHTML = "";
-        };
-
-        //页面载入时，读取数据，并添加到页面中
-        for (var i = 0; i < localStorage.length; i++) {
-            var strKey = localStorage.key(i);
-            var strValue = localStorage.getItem(strKey);
-            var oLi = document.createElement("li");
-            var oLiTxt = document.createTextNode(strKey + "：" + strValue);
-            oLi.appendChild(oLiTxt);
-            oList.appendChild(oLi);
-        }
+        xhr.send();
     }
-</script>
-</head>
-<body>
-    <ul id="list"></ul>
-    <textarea id="txt" cols="30" rows="10"></textarea><br>
-    <input id="btn" type="button" value="发表">
-    <input id="btnClear" type="button" value="清空">
-</body>
+ 
+    // 页面加载后获取留言
+    window.onload = getMessages();
+</script></code>
