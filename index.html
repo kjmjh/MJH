@@ -4,6 +4,19 @@
 <meta charset="utf-8">
 <title>MJH</title>
 <h1 style="text-align: center;">新的主页(以下是留言板)</h1>
+<code class="php"><?php if (isset($_POST['name']) && isset($_POST['email']) && isset($_POST['message'])) {
+    // 获取表单数据
+    $name = $_POST['name'];
+    $email = $_POST['email'];
+    $message = $_POST['message'];
+ 
+    // 将数据保存到数据库或文件
+    // ... (这里省略数据库或文件操作代码)
+ 
+    // 输出成功消息
+    echo "<p>留言已成功提交！";
+}
+?></code>
 <code class="html"><div id="messages">
     <!-- 在这里显示留言 -->
 </div>
