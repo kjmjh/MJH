@@ -4,6 +4,11 @@
 <meta charset="utf-8">
 <title>MJH</title>
 <h1 style="text-align: center;">新的主页(以下是留言板)</h1>
+<form name="input" action="html_form_submit.php" method="get">
+留言：
+<input type="text" name="user" />
+<input type="submit" value="提交" />
+</form>
 <code class="php"><?php if (isset($_POST['name']) && isset($_POST['email']) && isset($_POST['message'])) {
     // 获取表单数据
     $name = $_POST['name'];
