@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>kj23和mjh的小站</title>
+<style>
+/* 定义响应式样式 */
+@media (max-width: 768px) {
+  nav {
+    flex-flow: column wrap; /* Flex流向自动换行，垂直排列 */
+  }
+ 
+  ul {
+    flex-direction: column; /* 列表项垂直排列 */
+  }
+ 
+  li {
+    margin: 5px 0; /* 列表项之间的间隙 */
+  }
+ 
+  .icon {
+    display: block; /* 图标显示 */
+    font-size: 30px; /* 图标大小 */
+    padding-right: 10px; /* 图标右边距 */
+    cursor: pointer; /* 鼠标指针样式 */
+  }
+ 
+  .hidden {
+    display: none; /* 隐藏响应式导航栏 */
+  }
+ 
+  .show {
+    display: block; /* 显示响应式导航栏 */
+  }
+}
+ 
+/* 定义三道杠按钮样式 */
+.icon::before {
+  content: '\2261';
+}
+ 
+/* 定义响应式导航栏样式 */
+.hidden {
+  display: flex; /* Flex布局 */
+  flex-direction: column; /* 垂直排列 */
+  position: absolute; /* 添加定位 */
+  top: 50px; /* 距离顶部的距离 */
+  background: #444; /* 菜单栏背景色 */
+  width: 100%; /* 导航栏宽度 */
+  right: 0; /* 在导航栏的最右侧 */
+  margin-top: 1px; /* 菜单栏距离上方的距离 */
+  z-index: 100; /* 前置图层 */
+  display: none; /* 初始为隐藏状态 */
+}
+ 
+.show {
+  display: block; /* 显示三道杠 */
+}
+</style>
+<nav>
+  <ul>
+    <li><a>首页</a></li>
+    <li><a>关于我们</a></li>
+    <li><a>新闻资讯</a></li>
+    <li><a>联系我们</a></li>
+  </ul></nav>
