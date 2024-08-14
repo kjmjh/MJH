@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF8">
+    <meta name="viewport" content="width=devicewidth, initialscale=1.0">
+    <title>文字缓慢呈现示例</title>
+    <style>
+        .slowtext {
+            animation: slowtext 5s linear forwards;
+            opacity: 0;
+            overflow: hidden;
+            whitespace: nowrap;
+        }
+        @keyframes slowtext {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="slowtext">这是一段缓慢呈现的文字。</div>
+</body>
+</html>
